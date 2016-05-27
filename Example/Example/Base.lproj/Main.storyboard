@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aKj-j5-Llk">
+                                <rect key="frame" x="280" y="50" width="40" height="30"/>
+                                <state key="normal" title="Alert1"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pXp-cY-hPT">
+                                <rect key="frame" x="279" y="110" width="42" height="30"/>
+                                <state key="normal" title="Alert2"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p8Y-uF-IhS">
+                                <rect key="frame" x="279" y="170" width="43" height="30"/>
+                                <state key="normal" title="Alert3"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aKj-j5-Llk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5Qz-Ve-kX3"/>
+                            <constraint firstItem="pXp-cY-hPT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NFN-4y-YNf"/>
+                            <constraint firstItem="pXp-cY-hPT" firstAttribute="top" secondItem="aKj-j5-Llk" secondAttribute="bottom" constant="30" id="ajS-Np-AE7"/>
+                            <constraint firstItem="aKj-j5-Llk" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="pbK-b7-mJm"/>
+                            <constraint firstItem="p8Y-uF-IhS" firstAttribute="top" secondItem="pXp-cY-hPT" secondAttribute="bottom" constant="30" id="rb4-vj-0oD"/>
+                            <constraint firstItem="p8Y-uF-IhS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xuo-ab-4wz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="alertButton1" destination="aKj-j5-Llk" id="lOK-3w-VRP"/>
+                        <outlet property="alertButton2" destination="pXp-cY-hPT" id="NTy-gj-S5x"/>
+                        <outlet property="alertButton3" destination="p8Y-uF-IhS" id="Alu-wb-9Ct"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>

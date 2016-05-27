@@ -24,6 +24,10 @@ To install SwiftyAlert without a dependency manager, please add Alert.swift to y
 
 
 ## How to use
+- Add import
+``` swift
+import SwiftyAlert
+```
 
 - Simple Alert
 ``` swift

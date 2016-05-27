@@ -16,7 +16,7 @@ To integrate SwiftyAlert into your Xcode project using CocoaPods, specify it in 
 ```
 platform :ios, '8.0'
 use_frameworks!
-pod "SwiftyAlert", '~>0.1.0'
+pod "SwiftyAlert", '~>0.3.0'
 ```
 
 ### Manual Installation
@@ -50,22 +50,22 @@ Alert(title: "ActionSheet", message: "", style: .ActionSheet)
 ``` swift
 var idField: UITextField?
 var passwordField: UITextField?
-    
+
 Alert(title: "Alert", message: "Alert with TextField.")
     .addDefault("Login") {
-        print("Action1 selected.\nID:", idField?.text, "Password:", passwordField?.text)
+        print("ID:", idField?.text, "Password:", passwordField?.text)
     }
     .addTextField { textField in
-        idField = textField
+    idField = textField
         textField.placeholder = "ID"
     }
     .addTextField { textField in
         passwordField = textField
         textField.placeholder = "Password"
+        textField.secureTextEntry = true
     }
     .addCancel { print("Cancelled") }
     .show(self) { print("Completion") }
-}
 ```
 
 

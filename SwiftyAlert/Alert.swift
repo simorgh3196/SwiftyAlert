@@ -1,18 +1,34 @@
+/////////////////////////////////////////////////////////////////////////////////
+// The MIT License (MIT)
 //
-//  Alert.swift
-//  SwiftyAlert
+// Copyright (c) 2016 TomoyaHayakawa.
 //
-//  Created by 早川智也 on 2016/05/26.
-//  Copyright © 2016年 simorgh. All rights reserved.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+/////////////////////////////////////////////////////////////////////////////////
 
 import UIKit
 
 
-public struct Alert {
+public class Alert {
     public typealias AlertActionType = () -> Void
     
-    private var controller: UIAlertController
+    public var controller: UIAlertController
     
     /**
      initializer
@@ -31,11 +47,11 @@ public struct Alert {
      - AlertActionType is () -> Void
      
      - parameter title  : Button title.
-     - parameter action : Called when button selected. default is null.
+     - parameter action : Called when button selected. Default is nil.
      - returns          : Alert
      */
     public func addDefault(title: String, action: AlertActionType? = nil) -> Alert {
-        controller.addAction(UIAlertAction(title: title, style: .Default, handler: {_ in action?() }))
+        controller.addAction(UIAlertAction(title: title, style: .Default) {_ in action?() })
         return self
     }
     
@@ -45,11 +61,11 @@ public struct Alert {
      - AlertActionType is () -> Void
      
      - parameter title  : Button title.
-     - parameter action : Called when button selected. No default value, so you have to define this.
+     - parameter action : Called when button selected. Default is nil.
      - returns          : Alert
      */
-    public func addDestructive(title: String, action: AlertActionType) -> Alert {
-        controller.addAction(UIAlertAction(title: title, style: .Destructive, handler: {_ in action() }))
+    public func addDestructive(title: String, action: AlertActionType? = nil) -> Alert {
+        controller.addAction(UIAlertAction(title: title, style: .Destructive) {_ in action?() })
         return self
     }
     
@@ -59,11 +75,11 @@ public struct Alert {
      - AlertActionType is () -> Void
      
      - parameter title  : Button title. default is "Cancel".
-     - parameter action : Called when button selected. default is null.
+     - parameter action : Called when button selected. default is nil.
      - returns          : Alert
      */
     public func addCancel(title: String = "Cancel", action: AlertActionType? = nil) -> Alert {
-        controller.addAction(UIAlertAction(title: title, style: .Cancel, handler: {_ in action?() }))
+        controller.addAction(UIAlertAction(title: title, style: .Cancel) {_ in action?() })
         return self
     }
     

@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     
     dynamic private func tappedAlert2(sender: UIButton) {
         
-        Alert(title: "ActionSheet", message: "", style: .ActionSheet)
+        Alert(title: "ActionSheet", message: "message", style: .ActionSheet)
             .addDefault("Take Photo") { print("take phote") }
             .addDefault("Open Library") { print("open library") }
             .addDestructive("Delete") { print("delete") }

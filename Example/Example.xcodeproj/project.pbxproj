@@ -326,6 +326,7 @@
 				F44B85EE1CF6F2E200A51F57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

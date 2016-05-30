@@ -16,7 +16,7 @@ To integrate SwiftyAlert into your Xcode project using CocoaPods, specify it in 
 ```
 platform :ios, '8.0'
 use_frameworks!
-pod "SwiftyAlert", '~>0.4.0'
+pod "SwiftyAlert", '~>1.0.0'
 ```
 
 ### Manual Installation
@@ -84,11 +84,6 @@ Alert(title: "Alert", message: "Alert with TextField.")
 ``` swift
 Alert.okButtonTitle = "Go"
 Alert.cancelButtonTitle = "Back"
-```
-
-- Use at iPad
-``` swift
-
 ```
 
 

@@ -31,15 +31,16 @@ public class Alert {
     static public var cancelButtonTitle = "Cancel"
     
     public var controller: UIAlertController
+    public var textFieldHandler: ((UITextField, Int) -> Void)?
     
     private var disposeBag: Alert?
     
     /**
      initializer
      
-     - parameter title: Alert title
-     - parameter message: Alert message
-     - parameter style: UIAlertControllerStyle. Default is .Alert.
+     - parameter title   : Alert title
+     - parameter message : Alert message
+     - parameter style   : UIAlertControllerStyle. Default is .Alert.
      */
     public init(title: String, message: String = "", style: UIAlertControllerStyle = .Alert) {
         controller = UIAlertController(title: title, message: message, preferredStyle: style)
@@ -61,7 +62,6 @@ public class Alert {
         return self
     }
 
-    
     /**
      Add default type button and action to UIAlertController.
      - Return Alert, so you can use method chain.
@@ -167,7 +167,25 @@ public class Alert {
      - returns          : Alert
      */
     public func addTextField(handler: ((UITextField) -> Void)) -> Alert {
-        controller.addTextFieldWithConfigurationHandler(handler)
+        controller.addTextFieldWithConfigurationHandler { [weak self] textField in
+            guard let `self` = self else { return }
+            handler(textField)
+            NSNotificationCenter.defaultCenter().addObserver(self,
+                selector: #selector(self.textFieldDidChange(_:)),
+                name: UITextFieldTextDidChangeNotification,
+                object: textField)
+        }
+        return self
+    }
+    
+    /**
+     Register handler of UITextFieldTextDidChangeNotification.
+     
+     - parameter handler: UITextField, Index of textFields
+     - returns: Alert
+     */
+    public func handleTextFieldDidChange(handler: (UITextField, Int) -> ()) -> Alert {
+        textFieldHandler = handler
         return self
     }
     
@@ -176,8 +194,8 @@ public class Alert {
      If you use UIAlertController at iPad, you have to define this.
      - Return Alert, so you can chain method.
      
-     - parameter handler: (UIPopoverPresentationController?) -> Void
-     - returns          : Alert
+     - parameter handler : (UIPopoverPresentationController?) -> Void
+     - returns           : Alert
      */
     public func handlePopoverController(handler: (UIPopoverPresentationController?) -> Void) -> Alert {
         handler(controller.popoverPresentationController)
@@ -196,7 +214,15 @@ public class Alert {
         return self
     }
     
+    private dynamic func textFieldDidChange(notification: NSNotification) {
+        guard let textField = notification.object as? UITextField
+            , let index = controller.textFields?.indexOf(textField) else {
+                return
+        }
+        textFieldHandler?(textField, index)
+    }
+    
     deinit {
-        print("deinit")
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

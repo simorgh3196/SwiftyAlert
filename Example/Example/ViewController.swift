@@ -40,29 +40,29 @@ class ViewController: UIViewController {
         alertButton3.addTarget(self, action: #selector(tappedAlert3(_:)), forControlEvents: .TouchUpInside)
     }
     
-    dynamic private func tappedAlert1(sender: UIButton) {
+    private dynamic func tappedAlert1(sender: UIButton) {
         
         Alert(title: "Alert", message: "Simple Alert.")
             .addDefault("OK")
             .addCancel()
-            .handlePopoverController { controller in
-                
-            }
             .show(self)
-        
     }
     
-    dynamic private func tappedAlert2(sender: UIButton) {
+    private dynamic func tappedAlert2(sender: UIButton) {
         
         Alert(title: "ActionSheet", style: .ActionSheet)
             .addDefault("Take Photo") { print("take phote") }
             .addDefault("Open Library") { print("open library") }
             .addDestructive("Delete") { print("delete") }
             .addCancel()
+            .handlePopoverController { [weak self] controller in
+                controller?.sourceView = self?.view
+                controller?.sourceRect = sender.frame
+            }
             .show(self)
     }
     
-    dynamic private func tappedAlert3(sender: UIButton) {
+    private dynamic func tappedAlert3(sender: UIButton) {
         
         Alert(title: "Alert", message: "Alert with TextField.")
             .addTextField { textField in
@@ -72,10 +72,17 @@ class ViewController: UIViewController {
                 textField.placeholder = "Password"
                 textField.secureTextEntry = true
             }
+            .handleTextFieldDidChange { textField, index in
+                print("Index of textFields:", index, "text:", textField.text)
+                if textField.text?.characters.count > 5 {
+                    textField.text = ""
+                }
+            }
             .addDefaultWithTextField("Login") { textFields in
                 textFields?.forEach({ print($0.text) })
             }
             .addCancel("Back") { print("Cancelled") }
             .show(self) { print("Completion") }
     }
+    
 }

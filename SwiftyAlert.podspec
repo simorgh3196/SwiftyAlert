@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SwiftyAlert"
-  s.version      = "0.3.0"
+  s.version      = "1.0.0"
   s.summary      = "Simple UIAlertController and UIAlertView wrapper."
 
   # This description is used to generate tags and improve search results.
@@ -80,7 +80,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/simorgh3196/SwiftyAlert.git", :tag => "v0.3.0" }
+  s.source       = { :git => "https://github.com/simorgh3196/SwiftyAlert.git", :tag => "v1.0.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

@@ -48,6 +48,10 @@ Alert(title: "ActionSheet", style: .ActionSheet)
     .addDefault("Open Library") { print("open library") }
     .addDestructive("Delete") { print("delete") }
     .addCancel()
+    .handlePopoverController { [weak self] controller in    //for iPad
+        controller?.sourceView = self?.view
+        controller?.sourceRect = sender.frame
+    }
     .show(self)
 ```
 
@@ -60,6 +64,12 @@ Alert(title: "Alert", message: "Alert with TextField.")
     .addTextField { textField in
         textField.placeholder = "Password"
         textField.secureTextEntry = true
+    }
+    .registerTextFieldDidChangeHandler { textField, index in
+        print("Index of textFields:", index, "text:", textField.text)
+        if textField.text?.characters.count > 5 {
+            textField.text = ""
+        }
     }
     .addDefaultWithTextField("Login") { textFields in
         textFields?.forEach({ print($0.text) })

@@ -16,7 +16,7 @@ To integrate SwiftyAlert into your Xcode project using CocoaPods, specify it in 
 ```
 platform :ios, '8.0'
 use_frameworks!
-pod "SwiftyAlert", '~>0.3.0'
+pod "SwiftyAlert", '~>0.4.0'
 ```
 
 ### Manual Installation
@@ -29,6 +29,11 @@ To install SwiftyAlert without a dependency manager, please add Alert.swift to y
 import SwiftyAlert
 ```
 
+- The most simple alert
+``` swift
+Alert(title: "AlertTitle").addOk().show(self)
+```
+
 - Simple Alert
 ``` swift
 Alert(title: "Alert", message: "Simple Alert.")
@@ -38,7 +43,7 @@ Alert(title: "Alert", message: "Simple Alert.")
 
 - Action Sheet
 ``` swift
-Alert(title: "ActionSheet", message: "", style: .ActionSheet)
+Alert(title: "ActionSheet", style: .ActionSheet)
     .addDefault("Take Photo") { print("take phote") }
     .addDefault("Open Library") { print("open library") }
     .addDestructive("Delete") { print("delete") }
@@ -48,24 +53,32 @@ Alert(title: "ActionSheet", message: "", style: .ActionSheet)
 
 - With TextField
 ``` swift
-var idField: UITextField?
-var passwordField: UITextField?
-
 Alert(title: "Alert", message: "Alert with TextField.")
-    .addDefault("Login") {
-        print("ID:", idField?.text, "Password:", passwordField?.text)
-    }
     .addTextField { textField in
-    idField = textField
         textField.placeholder = "ID"
     }
     .addTextField { textField in
-        passwordField = textField
         textField.placeholder = "Password"
         textField.secureTextEntry = true
     }
-    .addCancel { print("Cancelled") }
+    .addDefaultWithTextField("Login") { textFields in
+        textFields?.forEach({ print($0.text) })
+    }
+    .addCancel("Back") { print("Cancelled") }
     .show(self) { print("Completion") }
+```
+
+## Advance
+
+- Change default text of addOk() and addCancel()
+``` swift
+Alert.okButtonTitle = "Go"
+Alert.cancelButtonTitle = "Back"
+```
+
+- Use at iPad
+``` swift
+
 ```
 
 

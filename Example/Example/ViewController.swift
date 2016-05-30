@@ -45,12 +45,16 @@ class ViewController: UIViewController {
         Alert(title: "Alert", message: "Simple Alert.")
             .addDefault("OK")
             .addCancel()
+            .handlePopoverController { controller in
+                
+            }
             .show(self)
+        
     }
     
     dynamic private func tappedAlert2(sender: UIButton) {
         
-        Alert(title: "ActionSheet", message: "message", style: .ActionSheet)
+        Alert(title: "ActionSheet", style: .ActionSheet)
             .addDefault("Take Photo") { print("take phote") }
             .addDefault("Open Library") { print("open library") }
             .addDestructive("Delete") { print("delete") }
@@ -60,23 +64,18 @@ class ViewController: UIViewController {
     
     dynamic private func tappedAlert3(sender: UIButton) {
         
-        var idField: UITextField?
-        var passwordField: UITextField?
-        
         Alert(title: "Alert", message: "Alert with TextField.")
-            .addDefault("Login") {
-                print("ID:", idField?.text, "Password:", passwordField?.text)
-            }
             .addTextField { textField in
-                idField = textField
                 textField.placeholder = "ID"
             }
             .addTextField { textField in
-                passwordField = textField
                 textField.placeholder = "Password"
                 textField.secureTextEntry = true
             }
-            .addCancel { print("Cancelled") }
+            .addDefaultWithTextField("Login") { textFields in
+                textFields?.forEach({ print($0.text) })
+            }
+            .addCancel("Back") { print("Cancelled") }
             .show(self) { print("Completion") }
     }
 }

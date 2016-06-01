@@ -65,7 +65,7 @@ Alert(title: "Alert", message: "Alert with TextField.")
         textField.placeholder = "Password"
         textField.secureTextEntry = true
     }
-    .registerTextFieldDidChangeHandler { textField, index in
+    .handleTextFieldDidChange { textField, index in
         print("Index of textFields:", index, "text:", textField.text)
         if textField.text?.characters.count > 5 {
             textField.text = ""

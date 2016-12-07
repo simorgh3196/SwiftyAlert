@@ -50,7 +50,7 @@ class ViewController: UIViewController {
                 controller?.sourceView = self?.view
                 controller?.sourceRect = sender.frame
             }
-            .show()
+            .show(animated: false)
     }
 
     @IBAction private func tappedAlert3() {

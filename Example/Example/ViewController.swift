@@ -27,30 +27,21 @@ import SwiftyAlert
 
 
 class ViewController: UIViewController {
-    
+
     @IBOutlet private weak var alertButton1: UIButton!
     @IBOutlet private weak var alertButton2: UIButton!
     @IBOutlet private weak var alertButton3: UIButton!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        alertButton1.addTarget(self, action: #selector(tappedAlert1(_:)), forControlEvents: .TouchUpInside)
-        alertButton2.addTarget(self, action: #selector(tappedAlert2(_:)), forControlEvents: .TouchUpInside)
-        alertButton3.addTarget(self, action: #selector(tappedAlert3(_:)), forControlEvents: .TouchUpInside)
-    }
-    
-    private dynamic func tappedAlert1(sender: UIButton) {
-        
+
+
+    @IBAction private func tappedAlert1() {
         Alert(title: "Alert", message: "Simple Alert.")
             .addDefault("OK")
             .addCancel()
-            .show(self)
+            .show()
     }
-    
-    private dynamic func tappedAlert2(sender: UIButton) {
-        
-        Alert(title: "ActionSheet", style: .ActionSheet)
+
+    @IBAction private func tappedAlert2(_ sender: UIButton) {
+        Alert(title: "ActionSheet", style: .actionSheet)
             .addDefault("Take Photo") { print("take phote") }
             .addDefault("Open Library") { print("open library") }
             .addDestructive("Delete") { print("delete") }
@@ -59,30 +50,29 @@ class ViewController: UIViewController {
                 controller?.sourceView = self?.view
                 controller?.sourceRect = sender.frame
             }
-            .show(self)
+            .show()
     }
-    
-    private dynamic func tappedAlert3(sender: UIButton) {
-        
+
+    @IBAction private func tappedAlert3() {
         Alert(title: "Alert", message: "Alert with TextField.")
             .addTextField { textField in
                 textField.placeholder = "ID"
             }
             .addTextField { textField in
                 textField.placeholder = "Password"
-                textField.secureTextEntry = true
+                textField.isSecureTextEntry = true
             }
             .handleTextFieldDidChange { textField, index in
-                print("Index of textFields:", index, "text:", textField.text)
-                if textField.text?.characters.count > 5 {
+                print("Index of textFields:", index, "text:", textField.text ?? "nil")
+                if (textField.text?.characters.count)! > 5 {
                     textField.text = ""
                 }
             }
             .addDefaultWithTextField("Login") { textFields in
-                textFields?.forEach({ print($0.text) })
+                textFields?.forEach({ print($0.text ?? "nil") })
             }
             .addCancel("Back") { print("Cancelled") }
-            .show(self) { print("Completion") }
+            .show() { print("Completion") }
     }
-    
+
 }

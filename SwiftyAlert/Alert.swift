@@ -40,9 +40,9 @@ public class Alert {
      
      - parameter title   : Alert title
      - parameter message : Alert message
-     - parameter style   : UIAlertControllerStyle. Default is .Alert.
+     - parameter style   : UIAlertControllerStyle. Default is .alert.
      */
-    public init(title: String, message: String = "", style: UIAlertControllerStyle = .Alert) {
+    public init(title: String, message: String = "", style: UIAlertControllerStyle = .alert) {
         controller = UIAlertController(title: title, message: message, preferredStyle: style)
     }
     
@@ -57,8 +57,8 @@ public class Alert {
      - parameter action : Called when button selected. Default is nil.
      - returns          : Alert
      */
-    public func addOk(action: (() -> Void)? = nil) -> Alert {
-        controller.addAction(UIAlertAction(title: Alert.okButtonTitle, style: .Default) {_ in action?() })
+    public func addOk(_ action: (() -> Void)? = nil) -> Alert {
+        controller.addAction(UIAlertAction(title: Alert.okButtonTitle, style: .default) {_ in action?() })
         return self
     }
 
@@ -70,8 +70,8 @@ public class Alert {
      - parameter action : Called when button selected. Default is nil.
      - returns          : Alert
      */
-    public func addDefault(title: String, action: (() -> Void)? = nil) -> Alert {
-        controller.addAction(UIAlertAction(title: title, style: .Default) {_ in action?() })
+    public func addDefault(_ title: String, action: (() -> Void)? = nil) -> Alert {
+        controller.addAction(UIAlertAction(title: title, style: .default) {_ in action?() })
         return self
     }
     
@@ -83,12 +83,12 @@ public class Alert {
      - parameter action : Called when button selected. Default is nil.
      - returns          : Alert
      */
-    public func addDefaultWithTextField(title: String,
+    public func addDefaultWithTextField(_ title: String,
                                         action: (([UITextField]?) -> Void)? = nil) -> Alert {
-        controller.addAction(UIAlertAction(title: title, style: .Default) { [weak self] _ in
+        controller.addAction(UIAlertAction(title: title, style: .default) { [weak self] _ in
             action?(self?.controller.textFields)
             self?.disposeBag = nil
-            })
+        })
         disposeBag = disposeBag ?? self
         return self
     }
@@ -101,8 +101,8 @@ public class Alert {
      - parameter action : Called when button selected. Default is nil.
      - returns          : Alert
      */
-    public func addDestructive(title: String, action: (() -> Void)? = nil) -> Alert {
-        controller.addAction(UIAlertAction(title: title, style: .Destructive) {_ in action?() })
+    public func addDestructive(_ title: String, action: (() -> Void)? = nil) -> Alert {
+        controller.addAction(UIAlertAction(title: title, style: .destructive) {_ in action?() })
         return self
     }
     
@@ -114,9 +114,9 @@ public class Alert {
      - parameter action : Called when button selected. Default is nil.
      - returns          : Alert
      */
-    public func addDestructiveWithTextField(title: String,
+    public func addDestructiveWithTextField(_ title: String,
                                             action: (([UITextField]?) -> Void)? = nil) -> Alert {
-        controller.addAction(UIAlertAction(title: title, style: .Destructive) { [weak self] _ in
+        controller.addAction(UIAlertAction(title: title, style: .destructive) { [weak self] _ in
             action?(self?.controller.textFields)
             self?.disposeBag = nil
             })
@@ -134,8 +134,8 @@ public class Alert {
      - parameter action : Called when button selected. default is nil.
      - returns          : Alert
      */
-    public func addCancel(title: String = Alert.cancelButtonTitle, action: (() -> Void)? = nil) -> Alert {
-        controller.addAction(UIAlertAction(title: title, style: .Cancel) {_ in action?() })
+    public func addCancel(_ title: String = Alert.cancelButtonTitle, action: (() -> Void)? = nil) -> Alert {
+        controller.addAction(UIAlertAction(title: title, style: .cancel) {_ in action?() })
         return self
     }
     
@@ -149,12 +149,12 @@ public class Alert {
      - parameter action : Called when button selected. Default is nil.
      - returns          : Alert
      */
-    public func addCancelWithTextField(title: String = Alert.cancelButtonTitle,
+    public func addCancelWithTextField(_ title: String = Alert.cancelButtonTitle,
                                        action: (([UITextField]?) -> Void)? = nil) -> Alert {
-        controller.addAction(UIAlertAction(title: title, style: .Cancel) { [weak self] _ in
+        controller.addAction(UIAlertAction(title: title, style: .cancel) { [weak self] _ in
             action?(self?.controller.textFields)
             self?.disposeBag = nil
-            })
+        })
         disposeBag = disposeBag ?? self
         return self
     }
@@ -166,25 +166,26 @@ public class Alert {
      - parameter handle : Configure UITextField.
      - returns          : Alert
      */
-    public func addTextField(handler: ((UITextField) -> Void)) -> Alert {
-        controller.addTextFieldWithConfigurationHandler { [weak self] textField in
-            guard let `self` = self else { return }
+    public func addTextField(_ handler: @escaping (UITextField) -> Void) -> Alert {
+        controller.addTextField { [weak self] textField in
+            guard let s = self else { return }
             handler(textField)
-            NSNotificationCenter.defaultCenter().addObserver(self,
-                selector: #selector(self.textFieldDidChange(_:)),
-                name: UITextFieldTextDidChangeNotification,
+            NotificationCenter.default.addObserver(
+                s,
+                selector: #selector(s.textFieldDidChange(_:)),
+                name: NSNotification.Name.UITextFieldTextDidChange,
                 object: textField)
         }
         return self
     }
-    
+
     /**
      Register handler of UITextFieldTextDidChangeNotification.
      
      - parameter handler: UITextField, Index of textFields
      - returns: Alert
      */
-    public func handleTextFieldDidChange(handler: (UITextField, Int) -> ()) -> Alert {
+    public func handleTextFieldDidChange(_ handler: @escaping (UITextField, Int) -> ()) -> Alert {
         textFieldHandler = handler
         return self
     }
@@ -197,7 +198,7 @@ public class Alert {
      - parameter handler : (UIPopoverPresentationController?) -> Void
      - returns           : Alert
      */
-    public func handlePopoverController(handler: (UIPopoverPresentationController?) -> Void) -> Alert {
+    public func handlePopoverController(_ handler: (UIPopoverPresentationController?) -> Void) -> Alert {
         handler(controller.popoverPresentationController)
         return self
     }
@@ -209,20 +210,21 @@ public class Alert {
      - parameter animated   : If you wont to no animation, set this false. default is true.
      - parameter completion : Called when did show UIAlertController.
      */
-    public func show(target: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) -> Alert {
-        target.presentViewController(controller, animated: animated, completion: completion)
-        return self
+    public func show(animated: Bool = true, completion: (() -> Void)? = nil) {
+        if let vc = UIApplication.shared.keyWindow?.rootViewController {
+            vc.present(controller, animated: animated, completion: completion)
+        }
     }
     
-    private dynamic func textFieldDidChange(notification: NSNotification) {
+    private dynamic func textFieldDidChange(_ notification: Notification) {
         guard let textField = notification.object as? UITextField
-            , let index = controller.textFields?.indexOf(textField) else {
+            , let index = controller.textFields?.index(of: textField) else {
                 return
         }
         textFieldHandler?(textField, index)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

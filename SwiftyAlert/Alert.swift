@@ -183,7 +183,7 @@ public class Alert {
      Register handler of UITextFieldTextDidChangeNotification.
      
      - parameter handler: UITextField, Index of textFields
-     - returns: Alert
+     - returns          : Alert
      */
     public func handleTextFieldDidChange(_ handler: @escaping (UITextField, Int) -> ()) -> Alert {
         textFieldHandler = handler
@@ -212,7 +212,10 @@ public class Alert {
      */
     public func show(animated: Bool = true, completion: (() -> Void)? = nil) {
         if let vc = UIApplication.shared.keyWindow?.rootViewController {
-            vc.present(controller, animated: animated, completion: completion)
+            DispatchQueue.main.async { [weak self] in
+                guard let s = self else { return }
+                vc.present(s.controller, animated: animated, completion: completion)
+            }
         }
     }
     

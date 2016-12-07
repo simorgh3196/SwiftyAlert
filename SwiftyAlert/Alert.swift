@@ -107,7 +107,7 @@ public class Alert {
     }
     
     /**
-     Add default type button and action to UIAlertController.
+     Add destructive type button and action to UIAlertController.
      - Return Alert, so you can use method chain.
      
      - parameter title  : Button title.
@@ -140,7 +140,7 @@ public class Alert {
     }
     
     /**
-     Add default type button and action to UIAlertController.
+     Add cancel type button and action to UIAlertController.
      Default value of title is Alert.cancelButtonTitle.("Cancel").
      If you wont to change default title, change Alert.okButtonTitle.
      - Return Alert, so you can use method chain.

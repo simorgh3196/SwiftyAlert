@@ -16,7 +16,7 @@ To integrate SwiftyAlert into your Xcode project using CocoaPods, specify it in 
 ```
 platform :ios, '8.0'
 use_frameworks!
-pod "SwiftyAlert", '~>1.0.0'
+pod "SwiftyAlert", '~>1.0.1'
 ```
 
 ### Manual Installation
@@ -88,6 +88,4 @@ Alert.cancelButtonTitle = "Back"
 
 
 ## Message
-This is my firt released library.  
-So I hope the help from everyone.  
 Please report bug to `@Sim_progra` at Twitter.

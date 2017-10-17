@@ -1,4 +1,9 @@
 # SwiftyAlert
+
+[![CocoaPods](https://img.shields.io/cocoapods/v/SwiftyAlert.svg)]()
+[![GitHub release](https://img.shields.io/github/release/simorgh3196/SwiftyAlert.svg)]()
+[![Swift version](https://img.shields.io/badge/swift-4.0-blue.svg?style=flat)]()
+
 Simple UIAlertController and UIAlertView wrapper.
 Enable to use Swifty.
 
@@ -11,12 +16,12 @@ github "simorgh3196/SwiftyAlert"
 ```
 
 ### Installing with CocoaPods
-To integrate SwiftyAlert into your Xcode project using CocoaPods, specify it in your Podfile and run pod install.  
+To integrate SwiftyAlert into your Xcode project using CocoaPods, specify it in your Podfile and run pod install.
 
 ```
 platform :ios, '8.0'
 use_frameworks!
-pod "SwiftyAlert", '~>1.0.1'
+pod "SwiftyAlert", '~>1.1.0'
 ```
 
 ### Manual Installation
@@ -38,7 +43,7 @@ Alert(title: "AlertTitle").addOk().show(self)
 ``` swift
 Alert(title: "Alert", message: "Simple Alert.")
     .addDefault("OK")
-    .show(self)
+    .show()
 ```
 
 - Action Sheet
@@ -52,7 +57,7 @@ Alert(title: "ActionSheet", style: .ActionSheet)
         controller?.sourceView = self?.view
         controller?.sourceRect = sender.frame
     }
-    .show(self)
+    .show()
 ```
 
 - With TextField
@@ -75,7 +80,7 @@ Alert(title: "Alert", message: "Alert with TextField.")
         textFields?.forEach({ print($0.text) })
     }
     .addCancel("Back") { print("Cancelled") }
-    .show(self) { print("Completion") }
+    .show() { print("Completion") }
 ```
 
 ## Advance

@@ -32,7 +32,6 @@ class ViewController: UIViewController {
     @IBOutlet private weak var alertButton2: UIButton!
     @IBOutlet private weak var alertButton3: UIButton!
 
-
     @IBAction private func tappedAlert1() {
         Alert(title: "Alert", message: "Simple Alert.")
             .addDefault("OK")
@@ -64,15 +63,14 @@ class ViewController: UIViewController {
             }
             .handleTextFieldDidChange { textField, index in
                 print("Index of textFields:", index, "text:", textField.text ?? "nil")
-                if (textField.text?.characters.count)! > 5 {
+                if (textField.text?.count)! > 5 {
                     textField.text = ""
                 }
             }
             .addDefaultWithTextField("Login") { textFields in
-                textFields?.forEach({ print($0.text ?? "nil") })
+                textFields?.forEach { print($0.text ?? "nil") }
             }
             .addCancel("Back") { print("Cancelled") }
             .show() { print("Completion") }
     }
-
 }

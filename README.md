@@ -72,12 +72,12 @@ Alert(title: "Alert", message: "Alert with TextField.")
     }
     .handleTextFieldDidChange { textField, index in
         print("Index of textFields:", index, "text:", textField.text)
-        if textField.text?.characters.count > 5 {
+        if textField.text?.count > 5 {
             textField.text = ""
         }
     }
     .addDefaultWithTextField("Login") { textFields in
-        textFields?.forEach({ print($0.text) })
+        textFields?.forEach { print($0.text) }
     }
     .addCancel("Back") { print("Cancelled") }
     .show() { print("Completion") }
